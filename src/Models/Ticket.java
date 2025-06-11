@@ -10,19 +10,19 @@ public class Ticket {
     private String customerContact;
     private  String category;
     private String description;
-    private Status status;
-    private PriorityLevel priorityLevel;
+    public Status status;
+    public PriorityLevel priorityLevel;
     private  String comments;
     private LocalDateTime dateCreated;
     private LocalDateTime dateUpdated;
 
-    enum Status{
+    public enum Status{
         OPEN, IN_PROGRESS, RESOLVED, CLOSED
     }
-    enum PriorityLevel{
+    public enum PriorityLevel{
         LOW, MEDIUM, HIGH, URGENT
     }
-    public Ticket(int id, String customerName, String customerContact, String category, String description, String priorityLevel) {
+    public Ticket( String customerName, String customerContact, String category, String description, PriorityLevel priorityLevel) {
         this.id = nextTicetId++;
         this.customerName = customerName;
         this.customerContact = customerContact;
