@@ -266,7 +266,7 @@ private static void createTicket() {
             break;
         case 3:
             System.out.println("Enter Status: ");
-            String status = scanner.nextLine();
+            Ticket.Status status = selectStatus();
             tickets = system.searchTicketByStatus(status);
             system.displaySearchResults(tickets, "Status");
             break;
