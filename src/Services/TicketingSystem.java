@@ -144,15 +144,16 @@ public class TicketingSystem {
     * */
     public List<Ticket> searchTicketByCustomerName(String name){
         return tickets.stream().filter(ticket ->
-                ticket.getCustomerName().equals(name)).collect(Collectors.toList());
+                ticket.getCustomerName().contains(name)).collect(Collectors.toList());
     }
     public List<Ticket> searchTicketByCategory(String category){
         return tickets.stream().filter(ticket ->
                 ticket.getCategory().equals(category)).collect(Collectors.toList());
     }
-    public List<Ticket> searchTicketByStatus(String status){
-        return tickets.stream().filter(ticket ->
-                ticket.getStatus().equals(status)).collect(Collectors.toList());
+    public List<Ticket> searchTicketByStatus(Ticket.Status status){
+        return tickets.stream()
+                .filter(ticket -> ticket.getStatus() == status) // Compare enum directly
+                .collect(Collectors.toList());
     }
 
     //Displaying the result of a search
