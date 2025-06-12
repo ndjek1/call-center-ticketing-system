@@ -14,15 +14,17 @@ public class TicketingSystem {
 
     public TicketingSystem() {
         this.tickets = new ArrayList<>();
+        addSampleData();
     }
-
-//    private void addSampleData() {
-//        createTicket("Alice Smith", "alice@example.com", "Billing", "Incorrect invoice amount", Ticket.Priority.HIGH);
-//        createTicket("Bob Johnson", "bob.j@example.com", "Technical Support", "Cannot log in to portal", Ticket.Priority.URGENT);
-//        tickets.get(1).setStatus(Ticket.Status.IN_PROGRESS);
-//        tickets.get(1).addComment("Agent assigned. Investigating login issue.");
-//        createTicket("Carol Williams", "carol.w@example.com", "General Inquiry", "Question about service plans", Ticket.Priority.MEDIUM);
-//    }
+    // Sample data for testing
+    private void addSampleData() {
+        createTicket("Alice Smith", "alice@example.com", "Billing", "Incorrect invoice amount", Ticket.PriorityLevel.HIGH);
+        createTicket("Mike Smith", "mike@example.com", "Billing", "Incorrect invoice amount", PriorityLevel.URGENT);
+        createTicket("Bob Johnson", "bob.j@example.com", "Technical Support", "Cannot log in to portal", Ticket.PriorityLevel.URGENT);
+        tickets.get(1).setStatus(Ticket.Status.IN_PROGRESS);
+        tickets.get(1).addComment("Agent assigned. Investigating login issue.");
+        createTicket("Carol Williams", "carol.w@example.com", "General Inquiry", "Question about service plans", Ticket.PriorityLevel.MEDIUM);
+    }
 
 
     //Method to create a new ticket and add it to the collection(ArrayList)
@@ -101,7 +103,7 @@ public class TicketingSystem {
         }
         System.out.println("Ticket #"+ ticket.get().getId() +" not found");
     }
-
+// Update ticket details including things like customer name, contact, category, description
     public boolean updateTicketDetails(int id, String customerName, String contact, String category, String description){
         Optional<Ticket> ticket = findTicketById(id);
         if(ticket.isPresent()){
@@ -136,6 +138,10 @@ public class TicketingSystem {
         return false;
     }
 
+    /*
+    * These methods are used for search a ticket or filter
+    *  them using one of their attributes
+    * */
     public List<Ticket> searchTicketByCustomerName(String name){
         return tickets.stream().filter(ticket ->
                 ticket.getCustomerName().equals(name)).collect(Collectors.toList());
@@ -148,11 +154,13 @@ public class TicketingSystem {
         return tickets.stream().filter(ticket ->
                 ticket.getStatus().equals(status)).collect(Collectors.toList());
     }
+
+    //Displaying the result of a search
     public void displaySearchResults(List<Ticket> tickets, String criteria){
         if(tickets.isEmpty()){
             System.out.println("No tickets found");
         }else  {
-            System.out.println("Tickets found");
+            System.out.println("Tickets found for : " + criteria);
             for(Ticket ticket:tickets){
                 System.out.println(ticket);
             }
